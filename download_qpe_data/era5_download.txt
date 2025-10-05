@@ -1,0 +1,3 @@
+download directly from CDS website: https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download
+
+OR use download=True option directly in era5.py script
