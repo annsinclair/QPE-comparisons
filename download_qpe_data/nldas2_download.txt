@@ -1,3 +1,0 @@
-data download: https://disc.gsfc.nasa.gov/datasets/NLDAS_FORB0125_H_2.0/summary?keywords=nldas2
-
-follow instructions listed here: https://disc.gsfc.nasa.gov/information/howto?title=How%20to%20Access%20GES%20DISC%20Data%20Using%20wget%20and%20curl
