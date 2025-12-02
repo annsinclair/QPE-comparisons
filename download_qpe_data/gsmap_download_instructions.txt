@@ -1,0 +1,7 @@
+1. register for an account at https://gportal.jaxa.jp/gpr/?lang=en
+2. in the command line, go to the working directory where you'd like to store data: 
+3. type: sftp -oPort=2051 [username]@ftp.gportal.jaxa.jp
+4. when prompted, enter password
+5. type: cd standard/GSMaP/3.GSMAP.H/05C/[YYYY]/[MM]/[DD]
+6. type: mget *.nc
+7. to repeat for other days: cd ../[DD], mget *.nc
