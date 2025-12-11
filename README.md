@@ -1,7 +1,7 @@
 # QPE-comparisons
 ## Code for downloading, cleaning, and comparing gridded QPE products
 
-This repository contains code for downloading 12 gridded QPE products, downloading and performing quality control on gauges from the Synoptic Data Weather API, and comparing precipitation estimates over a region as well as at the site of a specific event. It accompanies (_paper_)
+This repository contains code for downloading 12 gridded QPE products, downloading and performing quality control on gauges from the Synoptic Data Weather API, and comparing precipitation estimates over a region as well as at the site of a specific event. 
 
 The organization of the respository is as follows:
 
