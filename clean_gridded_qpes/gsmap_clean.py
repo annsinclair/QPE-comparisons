@@ -28,7 +28,8 @@ lat_min = 32
 lat_max = 38
 
 if len(time_array) != len(files):
-    print('warning! number of files is not the same as number of times defined. this will cause problems later on')
+    print('warning! number of files is not the same as number of'
+          'times defined. this will cause problems later on')
 
 # define gloabl grid
 lon = np.linspace(0.05, 359.95, 3600)
