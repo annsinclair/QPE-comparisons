@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+"""
+Filename: mrms_clean.py
+Author: Ann Sinclair
+Date: 2026-04-07
+Version: 1.0
+Description: Clean downloaded MRMS files and save as netCDF files
+"""
+
 # import libraries
 import numpy as np
 import xarray as xr
