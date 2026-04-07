@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+"""
+Filename: he_clean.py
+Author: Ann Sinclair
+Date: 2026-04-07
+Version: 1.0
+Description: Clean downloaded hydro-estimator files and save as netCDF files
+"""
+
 # import libraries
 import numpy as np
 import xarray as xr
