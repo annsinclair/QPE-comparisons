@@ -1,5 +1,10 @@
 #!/bin/bash
-  
+#
+# Script Name: cmorph_download.sh
+# Author: Ann Sinclair
+# Date: 2026-04-07
+# Description: download precipitation estimates from CMORPH v1 for specified date range
+# Usage: sh ./cmorph_download.sh
   
 # set dates for download
 year=2025        # USER INPUT! year of desired data 
@@ -36,28 +41,28 @@ done
 
 
 
-# ---------------------------------------------------------------------------------------------------------
-# OPTIONAL: loop over files and crop to desired lat/lon domain (requires NCL)
+# # ---------------------------------------------------------------------------------------------------------
+# # OPTIONAL: loop over files and crop to desired lat/lon domain (requires NCL)
 
-# define domain bounds
-lat_lower=32.
-lat_upper=38.
-lon_lower=237.
-lon_upper=246.
+# # define domain bounds
+# lat_lower=32.
+# lat_upper=38.
+# lon_lower=237.
+# lon_upper=246.
 
-# make directory for cropped data 
-end_directory="./cmorph_cropped_files"
-mkdir -p "$end_directory"
+# # make directory for cropped data 
+# end_directory="./cmorph_cropped_files"
+# mkdir -p "$end_directory"
 
-# loop over files and crop
-for file in "$directory"/*.nc; do
+# # loop over files and crop
+# for file in "$directory"/*.nc; do
 
-    extension="${file##*.}"
-    filename=$(basename "$file" ".$extension")
-    new_filename="${filename}_cropped.${extension}"
+#     extension="${file##*.}"
+#     filename=$(basename "$file" ".$extension")
+#     new_filename="${filename}_cropped.${extension}"
 
-    new_filepath="$end_directory/$new_filename"
+#     new_filepath="$end_directory/$new_filename"
 
-    ncea -d lon,${lon_lower},${lon_upper} -d lat,${lat_lower},${lat_upper} $file $new_filepath
-done
-# ---------------------------------------------------------------------------------------------------------
+#     ncea -d lon,${lon_lower},${lon_upper} -d lat,${lat_lower},${lat_upper} $file $new_filepath
+# done
+# # ---------------------------------------------------------------------------------------------------------
