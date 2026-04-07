@@ -5,8 +5,10 @@ import glob
 import os
 
 # define paths
-file_path = '/projects/b1045/asinclair/ARs/feb2025/imerg/imerg_ncs'                  # USER INPUT! location of downloaded data
-save_path = '/projects/b1045/asinclair/ARs/feb2025/qpe_datasets/imerg.nc' # USER INPUT! location to store cleaned data
+# USER INPUT! location of downloaded data
+file_path = 'path/to/imerg_files'
+# USER INPUT! location to store cleaned data
+save_path = '/path/to/store/cleaned_data/imerg.nc'
 
 # open downloaded data files as one dataset
 files = glob.glob(os.path.join(file_path, "*.nc4"))
@@ -20,11 +22,12 @@ print('data resampled to hourly')
 # select just the precip variable
 imerg_da = ds_resample.precipitation
 
-# transpose variables to match with other products (this makes things easier later)
+# transpose variables to match with other products (this makes things
+# easier later)
 imerg_da = imerg_da.transpose('time', 'lat', 'lon')
 
 # add an hour to time to make hour labels consistent with other products
-imerg_da['time'] = imerg_da['time'].astype('datetime64[ns]') #+ np.timedelta64(1, 'h')
+imerg_da['time'] = imerg_da['time'] + np.timedelta64(1, 'h')
 
 # save data as a netCDF
 imerg_da.to_netcdf(save_path)
