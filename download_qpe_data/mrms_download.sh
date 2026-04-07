@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Script Name: cmorph_download.sh
+# Script Name: mrms_download.sh
 # Author: Ann Sinclair
 # Date: 2026-04-07
 # Description: download precipitation estimates from MRMS v12.2 multi-sensor QPE for specified date range
