@@ -1,73 +1,73 @@
 # import libraries
+import gzip
 import numpy as np
 import xarray as xr
 import glob
 import os
 
 # define paths
-file_path = '/projects/b1045/asinclair/ARs/feb2025/gsmap/gsmap_files'                  # USER INPUT! location of downloaded data
-save_path = '/projects/b1045/asinclair/ARs/feb2025/qpe_datasets/gsmap.nc' # USER INPUT! location to store cleaned data
+# USER INPUT! location of downloaded data
+file_path = 'path/to/gsmap_files'
+# USER INPUT! location to store cleaned data
+save_path = '/path/to/store/cleaned_data/gsmap.nc'
 
-crop = True                                         # USER INPUT! True or False (to crop or not to crop...)
+# define beginning and end dates of files
+# USER INPUT! time of first file
+begin_time = '2021-01-27T00:00'
+# USER INPUT! time of last file
+end_time = '2021-01-31T00:00'
 
-if crop == True:
-    # define bounds of study area, if desired 
-    lon_min = -123                                  # USER INPUT! longitude bound 1 (from -180-180)
-    lon_max = -114                                  # USER INPUT! longitude bound 2 (from -180-180)
-    lat_min = 32                                    # USER INPUT! latitude bound 1 
-    lat_max = 38                                    # USER INPUT! latitude bound 2
+# define bounds of study area, if desired
+# USER INPUT! longitude bound 1 (from 0-360)
+lon_min = 237
+# USER INPUT! longitude bound 2 (from 0-360)
+lon_max = 246
+# USER INPUT! latitude bound 1
+lat_min = 32
+# USER INPUT! latitude bound 2
+lat_max = 38
 
-# import files 
-files = sorted(glob.glob(os.path.join(file_path, "*.nc")))
+if len(time_array) != len(files):
+    print('warning! number of files is not the same as number of times defined. this will cause problems later on')
 
-# define list for indivual hour data
-da_list = []
+# define gloabl grid
+lon = np.linspace(0.05, 359.95, 3600)
+lat = np.linspace(59.95, -59.95, 1200)
 
-# loop through hourly files, clean, add time coordinate
-for file in files:
-    # open dataset
-    ds = xr.open_dataset(file)
+# create masks to crop to study area
+mask_lon = (lon_min <= lon) & (lon <= lon_max)
+mask_lat = (lat_min <= lat) & (lat <= lat_max)
+lon_crop = lon[mask_lon]
+lat_crop = lat[mask_lat]
 
-    # get datetime from dataset attributes
-    attr_list = ds.attrs['FileHeader'].split(';\n')
-    for attr in attr_list:
-        if 'StartGranuleDateTime' in attr:
-            time_str = attr
-    dt_str = time_str.split('=')[1][:-1]
-    dt = np.datetime64(dt_str)
-    
-    # define lat and lon values
-    lat_flat = ds.Latitude.values[0]
-    lon_flat = ds.Longitude.values.T[0]
+# unzip and reshape .gz files
+array_list = []
+for file in sorted(files):
+    unzipped = gzip.GzipFile(file, 'rb')
+    data_1d = np.frombuffer(unzipped.read(), dtype=np.float32)
+    data = data_1d.reshape((1200, 3600))
+    data_crop = data[mask_lat, :][:, mask_lon]
+    array_list.append(data_crop)
 
-    # define/re-define time, lat, and lon coordinates
-    ds = ds.assign_coords({'lat':('nlat', lat_flat), 'lon':('nlon', lon_flat), 'time':dt})
-    ds = ds.drop_vars(['Latitude', 'Longitude'])
-    ds = ds.rename({'nlon':'lon', 'nlat':'lat'})
+# stack arrays
+array_3d = np.dstack(array_list)
 
-    # get the hourly precip data
-    da = ds.hourlyPrecipRateGC
+# define hourly array of times (should match # of files)
+time_array = np.arange(begin_time, end_time, dtype='datetime64[h]')
 
-    # crop to study area
-    if crop == True:
-        da = da.where(
-            ((da.lat>=lat_min) & (da.lat<=lat_max)) & 
-            ((da.lon>=lon_min) & (da.lon<=lon_max)), drop=True
-        )
+# create dataarray object
+gsmap_da = xr.DataArray(
+    data=array_3d,
+    dims=['lat', 'lon', 'time'],
+    coords=dict(
+        lon=(lon_crop),
+        lat=(lat_crop),
+        time=(time_array + np.timedelta64(1, 'h'))
+    ),)
 
-    da_list.append(da)
-print('files imported and cleaned')
-
-# combine hourly data to one dataarray
-da_full = xr.concat(da_list, dim='time')
-print('files combined')
-
-# add an hour to time to make hour labels consistent with other products
-da_full['time'] = da_full['time'] + np.timedelta64(1, 'h')
-
-# transpose variables to match with other products (this makes things easier later)
-da_full = da_full.transpose('time', 'lat', 'lon')
+# change from 360 lon to +/- 180
+gsmap_da = gsmap_da.assign_coords(lon=(gsmap_da.lon - 360))
 
 # save data as a netCDF
-da_full.to_netcdf(save_path)
+gsmap_da.to_netcdf(save_path)
 print('netCDF saved to', save_path)
