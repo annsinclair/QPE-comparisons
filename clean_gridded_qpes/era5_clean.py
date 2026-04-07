@@ -14,20 +14,20 @@ file_path = 'path/to/era5_files'
 # USER INPUT! location to store cleaned data
 save_path = '/path/to/store/cleaned_data/era5.nc'
 
-if Download == True:                               
-# download data------------>OPTIONAL! (if data is not already downloaded)
-# NOTE: change dates and area to fit needs
-# see https://cds.climate.copernicus.eu/how-to-api for more information
+if Download:
+    # download data------------>OPTIONAL! (if data is not already downloaded)
+    # NOTE: change dates and area to fit needs
+    # see https://cds.climate.copernicus.eu/how-to-api for more information
     import cdsapi
     dataset = "reanalysis-era5-single-levels"
     request = {
         "product_type": ["reanalysis"],
         "variable": ["total_precipitation"],
-        "year": ["2025"],
-        "month": ["02"],
+        "year": ["2021"],
+        "month": ["01"],
         "day": [
-            "12", "13",
-            "14", "15",
+            "27", "28",
+            "29", "30",
         ],
         "time": [
             "00:00", "01:00", "02:00",
@@ -46,10 +46,10 @@ if Download == True:
 
     client = cdsapi.Client()
     client.retrieve(dataset, request).download(file_path)
-    
+
     print('download complete')
 
-# open downloaded data 
+# open downloaded data
 ds = xr.open_dataset(file_path)
 print('data successfully imported')
 
@@ -57,7 +57,8 @@ print('data successfully imported')
 era5_da = ds.tp * 1000
 
 # rename variables
-era5_da = era5_da.rename({'valid_time': 'time', 'latitude': 'lat', 'longitude': 'lon'})
+era5_da = era5_da.rename(
+    {'valid_time': 'time', 'latitude': 'lat', 'longitude': 'lon'})
 
 # save data as a netCDF
 era5_da.to_netcdf(save_path)
