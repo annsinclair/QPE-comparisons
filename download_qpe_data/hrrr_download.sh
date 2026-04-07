@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Script Name: hrrr_download.sh
+# Author: Ann Sinclair
+# Date: 2026-04-07
+# Description: download precipitation estimates from HRRR v4 for specified date range
+# Usage: sh ./hrrr_download.sh
   
   
 # set dates for download
