@@ -1,5 +1,15 @@
-# import libraries
+#!/usr/bin/env python
+"""
+Filename: resample_qc.py
+Author: Ann Sinclair
+Date: 2026-04-07
+Version: 1.0
+Description: 
+    define functions for resampling and performing 
+    quality-control checks on rain gauge data
+"""
 
+# import libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
