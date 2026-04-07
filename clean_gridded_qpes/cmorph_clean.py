@@ -5,8 +5,10 @@ import glob
 import os
 
 # define paths
-file_path = '/projects/b1045/asinclair/ARs/feb2025/cmorph/cmorph_cropped_files'                  # USER INPUT! location of downloaded data
-save_path = '/projects/b1045/asinclair/ARs/feb2025/qpe_datasets/cmorph.nc' # USER INPUT! location to store cleaned data
+# USER INPUT! location of downloaded data
+file_path = 'path/to/cmorph_files'
+# USER INPUT! location to store cleaned data
+save_path = '/path/to/store/cleaned_data/cmorph.nc'
 
 # open downloaded data files as one dataset
 files = glob.glob(os.path.join(file_path, "*.nc"))
