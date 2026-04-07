@@ -1,5 +1,10 @@
 #!/bin/bash
-  
+#
+# Script Name: he_download.sh
+# Author: Ann Sinclair
+# Date: 2026-04-07
+# Description: download precipitation estimates from the NESDIS Hydro-Estimator for specified date range
+# Usage: sh ./he_download.sh
   
 # set dates for download
 year=2025        # USER INPUT! year of desired data 
