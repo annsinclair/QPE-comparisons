@@ -5,8 +5,10 @@ import glob
 import os
 
 # define paths
-file_path = '/projects/b1045/asinclair/ARs/feb2025/persiann/annsinclair20284nirKS/CCS_2025-11-03023729pm_202502.nc'                   # USER INPUT! location of downloaded data
-save_path = '/projects/b1045/asinclair/ARs/feb2025/qpe_datasets/persiann.nc' # USER INPUT! location to store cleaned data
+# USER INPUT! location of downloaded data
+file_path = 'path/to/persiann_files'
+# USER INPUT! location to store cleaned data
+save_path = '/path/to/store/cleaned_data/persiann.nc'
 
 # open downloaded data file (only 1 for PERSIANN)
 ds = xr.open_dataset(file_path)
