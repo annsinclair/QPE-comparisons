@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Script Name: mrmsro_download.sh
+# Author: Ann Sinclair
+# Date: 2026-04-07
+# Description: download precipitation estimates from MRMS v12.2 radar-only QPE for specified date range
+# Usage: sh ./mrmsro_download.sh
   
 # set dates for download
 year=2025        # year of desired data 
