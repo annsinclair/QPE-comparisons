@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+"""
+Filename: gsmap_clean.py
+Author: Ann Sinclair
+Date: 2026-04-07
+Version: 1.0
+Description: Clean downloaded GSMaP files and save as netCDF files
+"""
+
 # import libraries
 import gzip
 import numpy as np
