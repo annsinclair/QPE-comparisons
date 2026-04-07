@@ -5,11 +5,14 @@ import glob
 import os
 
 
-Download = True                                   # USER INPUT! True or False (to download or not to download...)
+# USER INPUT! True or False (to download or not to download...)
+Download = False
 
 # define paths
-file_path = '/projects/b1045/asinclair/ARs/feb2025/era5/era5_files/era5.nc'                   # USER INPUT! location of downloaded data (OR to put downloaded data)
-save_path = '/projects/b1045/asinclair/ARs/feb2025/era5/era5_clean.nc'  # USER INPUT! location to store cleaned data
+# USER INPUT! location of downloaded data (OR to put downloaded data)
+file_path = 'path/to/era5_files'
+# USER INPUT! location to store cleaned data
+save_path = '/path/to/store/cleaned_data/era5.nc'
 
 if Download == True:                               
 # download data------------>OPTIONAL! (if data is not already downloaded)
