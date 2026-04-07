@@ -1,5 +1,11 @@
 #!/bin/bash
-  
+#
+# Script Name: cmorph_download.sh
+# Author: Ann Sinclair
+# Date: 2026-04-07
+# Description: download precipitation estimates from MRMS v12.2 multi-sensor QPE for specified date range
+# Usage: sh ./mrms_download.sh
+
 # set dates for download
 year=2025        # USER INPUT! year of desired data 
 month_start=2    # USER INPUT! beginning month of desired data 
